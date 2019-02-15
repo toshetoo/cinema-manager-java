@@ -45,7 +45,7 @@ public class ReservationsRepository {
         Movie selectedMovie = this.moviesRepository.getMovieById(r.getReservedForMovie());
 
         LocalDateTime date = r.getReservedOn().plusMinutes(MIN_INTERVAL);
-        if (date.compareTo(selectedMovie.getPlayOn()) < 0) {
+        if (date.compareTo(selectedMovie.getPlayOn()) > 0) {
             throw new Exception("Reservation time should be more than 60 minutes before the movie play date.");
         }
 

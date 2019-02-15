@@ -85,7 +85,7 @@ public class Movie {
             minute = "0" + minuteNumber;
         }
 
-        String date = MessageFormat.format("2018-02-{0} {1}:{2}", day, hour, minute);
+        String date = MessageFormat.format("2019-02-{0} {1}:{2}", day, hour, minute);
         return LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
     }
 }
