@@ -1,0 +1,11 @@
+movies\views\MenuRenderer.class
+movies\App.class
+movies\data\DAL\ReservationsRepository.class
+movies\models\Movie.class
+movies\models\Reservation.class
+movies\models\User.class
+movies\models\Hall.class
+movies\data\DAL\HallsRepository.class
+movies\data\db\DataProvider.class
+movies\models\Seat.class
+movies\data\DAL\MoviesRepository.class
