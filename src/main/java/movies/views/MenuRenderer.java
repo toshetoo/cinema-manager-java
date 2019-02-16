@@ -12,7 +12,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class MenuRenderer {
@@ -27,8 +26,11 @@ public class MenuRenderer {
     }
 
 
+    /**
+     * Renders the main user menu
+     * Provides the user with a choice for submenus
+     */
     public void renderMainMenu() {
-        //clearConsole();
         System.out.println("Select a category:");
         System.out.println("1. View movies");
         System.out.println("2. Create reservation");
@@ -53,6 +55,9 @@ public class MenuRenderer {
         }
     }
 
+    /**
+     * Displays a list with all available movies and their details
+     */
     private void renderMoviesMenu() {
         print("--- All movies ---");
         List<Movie> movies = this.moviesRepository.getAllMovies();
@@ -76,6 +81,11 @@ public class MenuRenderer {
         renderMainMenu();
     }
 
+    /**
+     * Renders the menu for the creation of a single reservation
+     * Displays a list of all movies with movie times and free seats
+     * and provides the user with a choice for a movie
+     */
     private void renderReservationsMenu() {
         print("--- Create a reservation ---");
 
@@ -104,7 +114,6 @@ public class MenuRenderer {
         print("How many people?");
         int people = Integer.parseInt(readFromConsole());
 
-//        LocalDateTime reservationTime = LocalDateTime.parse(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         Reservation newReservation = new Reservation(u, selectedHall.getCurrentPlayingMovie().getMovieId(), LocalDateTime.now(), people, selectedHall.getHallId());
 
         try {
@@ -125,6 +134,10 @@ public class MenuRenderer {
         System.out.println(msg);
     }
 
+    /**
+     * Reads a {@link String} from the console
+     * @return The string typed by the user or NULL if an exception occurred
+     */
     private String readFromConsole() {
         String input;
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -146,6 +159,9 @@ public class MenuRenderer {
         }
     }
 
+    /**
+     * Visually clears the console by printing a number of empty lines
+     */
     private void clearConsole() {
         for (int clear = 0; clear < 1000; clear++) {
             System.out.println();

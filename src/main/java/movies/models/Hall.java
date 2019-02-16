@@ -20,7 +20,7 @@ public class Hall {
         this.hallNumber = hallNumber;
         this.capacity = capacity;
         this.currentPlayingMovie = currentPlayingMovie;
-        this.seats = new ArrayList<Seat>();
+        this.seats = new ArrayList<>();
 
         for (int i = 0; i < this.capacity; i++) {
             this.seats.add(new Seat(this.getHallId(), (i + 1), false));
