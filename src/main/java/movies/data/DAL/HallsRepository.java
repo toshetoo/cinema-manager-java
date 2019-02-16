@@ -53,4 +53,15 @@ public class HallsRepository {
             seat.setTaken(true);
         });
     }
+
+    /**
+     * @param hallId The Id of the hall we're going to mark seats of
+     * @param seatCount The amount of seats that are going to be taken
+     */
+    public void markSeatsAsFree(UUID hallId, Integer seatCount) {
+        Hall currentHall = this.getHallById(hallId);
+        currentHall.getSeats().stream().filter(s -> s.getTaken()).limit(seatCount).forEach(seat -> {
+            seat.setTaken(false);
+        });
+    }
 }

@@ -59,10 +59,11 @@ public class ReservationsRepository {
     /**
      * @param reservationId UUID of the {@link Reservation} that should be deleted
      */
-    public void deleteReservation(UUID reservationId) {
-        Reservation r = DataProvider.getReservations().stream().filter(res -> res.getId() == reservationId).findFirst().orElse(null);
+    public void deleteReservation(Reservation reservation) {
+        Reservation r = DataProvider.getReservations().stream().filter(res -> res.getId() == reservation.getId()).findFirst().orElse(null);
         if (r != null) {
-            DataProvider.removeReservation(r);
+            this.hallsRepository.markSeatsAsFree(reservation.getHallId(), reservation.getCount());
+            DataProvider.removeReservation(reservation);
         }
     }
 }

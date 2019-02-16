@@ -64,7 +64,7 @@ public class Movie {
      * Generates a random play time for a movie. Takes the current day of the month and a random hour and minutes
      * @return An instance of {@link LocalDateTime} that should be assigned to the movie
      */
-    private LocalDateTime generatePlayTime() {
+    public LocalDateTime generatePlayTime() {
         Random rnd = new Random();
         int dayNumber = LocalDateTime.now().getDayOfMonth();
 
