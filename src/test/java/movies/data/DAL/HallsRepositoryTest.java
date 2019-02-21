@@ -34,16 +34,32 @@ public class HallsRepositoryTest {
     public void testGetAllHalls() {
         Assert.assertNotNull("Should return a list of halls that is not null", repo.getAllHalls());
         Assert.assertEquals("Should return 9 halls", 9, repo.getAllHalls().size());
+    }
+
+    @Test
+    public void testAllHallsShouldHaveMovies() {
         Assert.assertTrue("All halls should have assigned movies", repo.getAllHalls().stream().allMatch(h -> h.getCurrentPlayingMovie() != null));
+    }
+
+    @Test
+    public void testAllHallsShouldHaveSeats() {
         Assert.assertTrue("All halls should have assigned seats", repo.getAllHalls().stream().allMatch(h -> h.getSeats() != null));
+    }
+
+    @Test
+    public void testAllHallsShouldHaveEqualSeatsAsHallSize() {
         Assert.assertTrue("Number of seats should be the same as hall size", repo.getAllHalls().stream().allMatch(h -> h.getSeats().size() == h.getCapacity()));
     }
 
     @Test
-    public void testGetHallById() {
+    public void testGetHallByCorrectId() {
         UUID id = this.repo.getAllHalls().get(0).getHallId();
 
         Assert.assertNotNull("With correct UUID should return a hall that is not null", repo.getHallById(id));
+    }
+
+    @Test
+    public void testGetHallByIncorrectId() {
         Assert.assertNull("With incorrect UUID should return null", repo.getHallById(UUID.randomUUID()));
     }
 

@@ -36,16 +36,20 @@ public class ReservationsRepositoryTest {
     }
 
     @Test
-    public void testGetReservationById() {
+    public void testGetReservationByIdWithCorrectId() {
         UUID id = UUID.randomUUID();
         Reservation r = Mockito.mock(Reservation.class);
         when(r.getId()).thenReturn(id);
         DataProvider.addReservation(r);
 
         Assert.assertNotNull("Reservation with correct id should not be null", repo.getReservationById(id));
-        Assert.assertNull("Reservation with incorrect id should be null", repo.getReservationById(UUID.randomUUID()));
 
         DataProvider.removeReservation(r);
+    }
+
+    @Test
+    public void testGetReservationByIdWithIncorrectId() {
+        Assert.assertNull("Reservation with incorrect id should be null", repo.getReservationById(UUID.randomUUID()));
     }
 
     @Test

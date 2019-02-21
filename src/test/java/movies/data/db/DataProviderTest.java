@@ -10,8 +10,20 @@ public class DataProviderTest {
     public void testGetHalls() {
         Assert.assertNotNull("Collection of halls should not be null", DataProvider.getHalls());
         Assert.assertEquals("All halls must be 9", 9, DataProvider.getHalls().size());
+    }
+
+    @Test
+    public void testAllHallsShouldHaveMovies() {
         Assert.assertTrue("All halls should have assigned movies", DataProvider.getHalls().stream().allMatch(h -> h.getCurrentPlayingMovie() != null));
+    }
+
+    @Test
+    public void testAllHallsShouldHaveSeats() {
         Assert.assertTrue("All halls should have assigned seats", DataProvider.getHalls().stream().allMatch(h -> h.getSeats() != null));
+    }
+
+    @Test
+    public void testAllHallsShouldHaveEqualSeatsAsHallSize() {
         Assert.assertTrue("Number of seats should be the same as hall size", DataProvider.getHalls().stream().allMatch(h -> h.getSeats().size() == h.getCapacity()));
     }
 

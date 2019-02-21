@@ -22,10 +22,14 @@ public class MoviesRepositoryTest {
     }
 
     @Test
-    public void testGetMovieById() {
+    public void testGetMovieByCorrectId() {
         UUID id = this.repo.getAllMovies().get(0).getMovieId();
 
         Assert.assertNotNull("With correct UUID should return a movie that is not null", repo.getMovieById(id));
+    }
+
+    @Test
+    public void testGetMovieByIncorrectId() {
         Assert.assertNull("With incorrect UUID should return null", repo.getMovieById(UUID.randomUUID()));
     }
 }
