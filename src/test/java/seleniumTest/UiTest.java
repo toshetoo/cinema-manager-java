@@ -2,9 +2,11 @@ package seleniumTest;
 
 import org.junit.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -36,6 +38,35 @@ public class UiTest {
 
         Assert.assertEquals("Url should be correct", "https://www.ultimateqa.com/filling-out-forms/", driver.getCurrentUrl());
     }
+
+    @Test
+    public void testCursorShouldBeHandOverButtons() {
+        WebElement fillLink = driver.findElement(By.linkText("Fill out forms"));
+        fillLink.click();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        Actions hover = new Actions(driver);
+        WebElement el = driver.findElements(By.className("et_pb_button")).get(1);
+        hover.moveToElement(el).build().perform();
+
+        explicitWait(1000);
+
+        Assert.assertEquals("Cursor should be pointer over a button", "pointer", el.getCssValue("cursor"));
+    }
+
+    @Test
+    public void testSubmitButtonShouldBeWhiteOnHover() {
+        WebElement fillLink = driver.findElement(By.linkText("Fill out forms"));
+        fillLink.click();
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        Actions hover = new Actions(driver);
+        WebElement el = driver.findElements(By.className("et_pb_button")).get(1);
+        hover.moveToElement(el).build().perform();
+
+        explicitWait(1000);
+
+        Assert.assertEquals("Cursor should be pointer over a button", "rgba(0, 0, 0, 0.05)", el.getCssValue("background-color"));
+    }
+
 
     @Test
     public void testTrySubmitWithoutData() {
@@ -96,9 +127,10 @@ public class UiTest {
         WebElement submitBtn = form.findElement(By.tagName("button"));
         submitBtn.click();
 
-        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-//        WebElement errorMsg = driver.findElement(By.className("et-pb-contact-message")).findElement(By.tagName("ul")).findElement(By.tagName("li"));
-//        Assert.assertTrue("Captcha input should have error class", errorMsg.isDisplayed());
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+
+        WebElement errorMsg = driver.findElement(By.cssSelector(".et-pb-contact-message ul li"));
+        Assert.assertTrue("Captcha input should have error class", errorMsg.isDisplayed());
 
         WebElement questionSpan2 = form.findElement(By.className("et_pb_contact_captcha_question"));
         String[] questionText2 = questionSpan2.getText().split(Pattern.quote("+"));
@@ -110,9 +142,9 @@ public class UiTest {
         captchaInput.sendKeys(Integer.toString(res));
         submitBtn.click();
 
-        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+        explicitWait(5000);
 
-        Assert.assertTrue("Form should not be visible", !form.isDisplayed());
+        Assert.assertEquals("Form should not be visible", 2, driver.findElements(By.tagName("form")).size());
 
         WebElement successMessage = driver.findElements(By.className("et-pb-contact-message")).get(1);
         Assert.assertTrue("Success message should be visible", successMessage.isDisplayed());
@@ -122,5 +154,13 @@ public class UiTest {
     public void after() throws InterruptedException {
         Thread.sleep(2000);
         driver.close();
+    }
+
+    private void explicitWait(int i) {
+        try {
+            Thread.sleep(i);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
