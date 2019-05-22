@@ -6,8 +6,9 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="child1core" />
         <module name="CinemaManager" />
+        <module name="child1core" />
+        <module name="child2core" />
       </profile>
     </annotationProcessing>
   </component>
