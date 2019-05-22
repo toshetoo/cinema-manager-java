@@ -11,6 +11,7 @@
   <modules>
     <module>child-1-core</module>
     <module>child2core</module>
+    <module>child3core</module>
   </modules>
 
   <name>cinema-manager</name>
