@@ -112,7 +112,6 @@
   </build>
 
   <modules>
-    <module>child2core</module>
     <module>child3core</module>
     <module>child-1-core</module>
   </modules>
